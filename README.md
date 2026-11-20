@@ -1,26 +1,101 @@
-# KinoWeave Studio · Showcase
+# KinoWeave Studio · Public Engineering Showcase
 
-**A deterministic, local-first control plane for AI-assisted video production** — connecting structured planning, versioned ShotSpecs, fail-closed Generation Gates, asynchronous multi-provider orchestration, content-addressed assets, non-destructive multi-track editing, and FFmpeg-verified delivery.
+**Deterministic Local-First AI Video Production Control Plane** — connecting structured planning, versioned `ShotSpec` / `PromptSnapshot` hashing, fail-closed Generation Gates, asynchronous multi-provider orchestration, content-addressed assets, non-destructive multi-track editing, and `FFmpeg`-verified delivery.
 
-> **Evaluation Context**: This public repository (`KinoWeaveStudio-Showcase`) was assembled from the private `KinoWeaveStudio` codebase to provide **verifiable engineering evidence** (real UI walkthrough, real Chrome acceptance captures, live test runs, and curated code excerpts) for **Devin Bots credits evaluation**.
->
-> **Strict Honesty & Safety Notice**: **0 paid Provider API calls** were executed for this showcase. All screenshots, video recordings, and test results strictly separate `DEMO / MOCK` exploration mode, `LOCAL CORE` offline / local-TLS acceptance runs, and default-disabled `LIVE PROVIDER` integration. All credentials, internal endpoints, local user paths, and private creative scripts have been removed or omitted.
+> **Public Evidence Repository (Not a Standalone Runnable Release)**  
+> `KinoWeaveStudio-Showcase` is a **public, desensitized engineering evidence repository** derived from the private `KinoWeave Studio` codebase for **Poke / Devin Bots credits evaluation**. It is **not** a runnable open-source release of the full private application: full source code, internal deployment configs, SQLite databases, API keys, and private production scripts are deliberately withheld. **0 paid Provider API calls** were made to generate any artifact or test result here.
+
+**Quick Reviewer Links**: [104s Demo Video (MP4)](demo/kinoweave-studio-demo.mp4) · [English Subtitles (SRT)](demo/kinoweave-studio-demo.srt) · [5 Parallel Devin Bots Tasks](docs/DEVIN_BOTS_ROADMAP.md) · [Verification Logs](evidence/TEST_VERIFICATION.md) · [Security Audit](SECURITY_AUDIT.md)
 
 ---
 
-## Operating Modes & Truthfulness Matrix
+## 1. Verified `LOCAL CORE` Runtime Evidence & Latest Test Results
 
-KinoWeave Studio enforces hard architectural boundaries between UI exploration, offline acceptance, and real billable API execution—never silently falling back between modes:
+The captures below come from **real Desktop Chrome** talking to **real Python Core + authenticated loopback Bridge HTTP + SQLite + pinned `FFmpeg 9.0.2`** under isolated mock / local-TLS provider transports (`0` paid API calls). Zoomed full-width crops highlight readability while linking directly to every untouched original screenshot.
 
-| Mode | Backing Engine | Network / Paid APIs | Purpose & Boundary |
+### 1.1 Pinned `FFmpeg 9.0.2` Delivery, Full-Decode QC & Verified SMPTE Playback
+
+Exporting an immutable saved Timeline revision (`r1`) produces an H.264/AAC MP4 verified via full-stream decode (`72 frames`, `Stereo 48 kHz`, `Quality: PASS`) and exact `Output SHA-256` matching in the browser.
+
+![LOCAL CORE Delivery Export Verified](assets/screenshots/highlights/h1-core-delivery-ffmpeg-verified.png)
+
+- Untouched full-page original: [10-core-delivery-ffmpeg-verified.png](assets/screenshots/10-core-delivery-ffmpeg-verified.png)
+
+---
+
+### 1.2 Non-Destructive Multi-Track Timeline (`V1`/`A1`, Rational FPS, SHA-256 Revisions)
+
+Frame-accurate editing across visual (`V1`) and audio (`A1`) tracks using content-addressed registered assets (`daily-image`, `daily-video`, `daily-audio`), immutable revision snapshots (`Saved r1`), and zero mutation of source media.
+
+![LOCAL CORE Multi-Track Timeline](assets/screenshots/highlights/h2-core-timeline-multitrack.png)
+
+- Untouched original (cropped only at `y=1694` below the app footer to strip an appended test-harness `<video>` element): [09-core-timeline-multitrack.png](assets/screenshots/09-core-timeline-multitrack.png)
+
+---
+
+### 1.3 Seven-Check Generation Gate & Fail-Closed `UNKNOWN` Non-Retry Guards
+
+Before any job can submit, Core evaluates snapshot integrity, shot binding, unrevoked human review with Warning ACKs, parameter canonicalization (rejecting secret-keyed fields), and project-pinned routes.
+
+![LOCAL CORE 7-Check Generation Gate PASS](assets/screenshots/highlights/h3-core-production-gate-pass.png)
+
+- Untouched full-page original: [05-core-production-gate-pass.png](assets/screenshots/05-core-production-gate-pass.png) · Related Asset browser: [08-core-projects-assets.png](assets/screenshots/08-core-projects-assets.png)
+
+<details>
+<summary><strong>Inspect Fail-Closed Gate Rejection (<code>REVIEW_NOT_FOUND</code>) &amp; <code>UNKNOWN</code> Non-Retry Reconciliation Captures (Full Width)</strong></summary>
+
+#### Fail-Closed Gate Rejection — Unreviewed Snapshot Denied (`REVIEW_NOT_FOUND`)
+![LOCAL CORE Gate Denied](assets/screenshots/highlights/h4a-core-gate-denied.png)
+- Untouched original: [06-core-production-gate-denied.png](assets/screenshots/06-core-production-gate-denied.png)
+
+#### Uncertain Submission Boundary — `UNKNOWN` Forces `RECONCILIATION_REQUIRED` (Never Auto-Retried)
+![LOCAL CORE UNKNOWN Non-Retry Guard](assets/screenshots/highlights/h4b-core-unknown-reconcile.png)
+- Untouched original: [07-core-production-unknown-reconcile.png](assets/screenshots/07-core-production-unknown-reconcile.png)
+
+</details>
+
+---
+
+### 1.4 Latest Verification Summary (`2026-11-20` Live Runs vs. Frozen `724f79b` Baseline)
+
+Live verification run directly on **`2026-11-20`** is reported separately from the frozen **`724f79b`** closure baseline—counts across separate runs and commits are never combined. Full command logs live in [evidence/TEST_VERIFICATION.md](evidence/TEST_VERIFICATION.md).
+
+| Verification Scope | Run / Commit | Result | Notes |
 | --- | --- | --- | --- |
-| **`DEMO / MOCK`** | Browser `mockAdapter` + `localStorage` fixtures | **None** (`http://127.0.0.1` UI only) | Interactive React Studio walkthrough across all 6 workspaces. Explicitly displays `CORE API NOT EXPOSED` / `NO MEDIA GENERATED` banners. |
-| **`LOCAL CORE` (Offline / Local TLS)** | Python Core + `h11` Loopback Bridge + SQLite + Pinned FFmpeg `9.0.2` | **Localhost / Local TLS test endpoints only** (`0` paid API calls) | End-to-end engineering acceptance: real Bridge HTTP, one-use pairing secrets, CSRF, 7-check Generation Gate, Job/Attempt leases, safe staging, non-destructive Timeline revisions, and decoded FFmpeg MP4/WebM export. |
-| **`LIVE PROVIDER`** | Python Core + Bridge + Real Vendor Transports | **Default DISABLED** | Requires **two** independent authorization files (`ProviderConfig` + `LiveWriteGrant`), per-modality scope (`IMAGE` vs. `VIDEO`), named env var secrets, integer minor-unit budget caps, and explicit `download_hosts`. |
+| **Core Backend Representative Suite** (`17` pytest files) | **Live · 2026-11-20** | **253 passed, 1 skipped, 0 failed** (`409.09s`) | Covers contracts, policies, gates, jobs, async video, cache, recovery, Pixstag/Seedance adapters, editing, delivery, backup/restore, logging, grants. Skip = Windows unprivileged symlink test. |
+| **Targeted Delivery & Model Regression** (`2` pytest files) | **Live · 2026-11-20** | **4 passed, 0 failed** (`2.62s`) | `test_delivery_frame_boundaries.py`, `test_image_default_model.py`. |
+| **Frontend Typecheck + Vitest** (`test-frontend.ps1`) | **Live · 2026-11-20** | **128 passed / 20 files**, `tsc` 0 errors (`22.80s`) | Real Bridge client, Production boundaries, Timeline model, Storyboard, Content tests. |
+| **Frontend Production Build** (`build-ui.ps1`) | **Live · 2026-11-20** | **PASS** (`301` modules, `1.68s`) | Clean `tsc -b && vite build` bundle. |
+| **Demo MP4 FFprobe + Full Decode** | **Live · 2026-11-20** | **PASS** (`104.20s`, `1280x720`, `0` errors) | Verified with pinned `FFmpeg / FFprobe 9.0.2`. |
+| **Full Backend + Chrome Bridge E2E (Frozen Baseline)** | Historical · `724f79b` | **1,818 PASS / 3 SKIP / 0 FAIL** + Chrome E2E **PASS** | Historical closure baseline (`DAILY_WORKFLOW_FINAL_CLOSURE_REPORT.md`): real Bridge HTTP, new persistent root, local TLS APIs, 30-file backup/restore drill. |
+
+> **Bridge Runtime Integrity Status (`503 RUNTIME_UNAVAILABLE`)**: Historical real-HTTP Bridge E2E (`playwright.daily.config.ts`) passed on the frozen `724f79b` baseline. On the active development working tree (`b31e426` plus active uncommitted Core/integration edits), `verify_runtime()` intentionally returns **`503 RUNTIME_UNAVAILABLE`** because `core_identity.json` has not yet been re-pinned to the updated Core bytes—confirming that the fail-closed runtime guard blocks unpinned execution before opening any socket.
 
 ---
 
-## System Architecture
+## 2. Five Parallel Devin Bots Engineering Workstreams
+
+KinoWeave Studio's clean separation between Python Core, Loopback Bridge, and React Studio—backed by offline `pytest`, `Vitest`, and `Playwright` test harnesses—lets **five Devin Bots** execute concurrently with **disjoint file ownership** and **zero paid API spend**. Full deliverable specs and commands live in [docs/DEVIN_BOTS_ROADMAP.md](docs/DEVIN_BOTS_ROADMAP.md):
+
+| Bot | Parallel Engineering Task | Disjoint Module Scope | Concrete Deliverables | Automated Offline Gate |
+| --- | --- | --- | --- | --- |
+| **#1** | **Multi-Provider Contract Matrix & Error Taxonomy** | `src/kinoweave/model_contracts.py`, `providers.py`, contract tests | Unified parameter JSON Schema matrix validator + deterministic error classifier (`AUTH`, `QUOTA`, `RATE_LIMIT`, `INVALID_INPUT`, `POLICY`, `UNKNOWN`) preserving `CANDIDATE` isolation. | `pytest test_model_contracts.py test_providers_templates.py test_video_provider_contract.py` |
+| **#2** | **Async Video Recovery & Ledger Reconciliation CLI** | `src/kinoweave/video_recovery.py`, `video_result_cache.py`, `scripts/recover_cached_video.py` | Machine-readable reconciliation report for `UNKNOWN` / `RECONCILIATION_REQUIRED` jobs + fault-injection tests with mocked socket prohibition. | `pytest test_video_recovery.py test_video_cache.py test_offline_video_runtime.py` |
+| **#3** | **Bridge OpenAPI v1 & TypeScript/Zod Schema Parity** | `src/kinoweave_bridge/contract.py`, `docs/bridge/openapi-v1.yaml`, `*Contracts.ts` | Automated parity test across all `42` Bridge operations verifying HTTP methods, query/body bounds, error codes, and lifecycle enums match OpenAPI & Zod schemas. | `pytest tests/bridge/test_contract.py` + `npm run typecheck && npm test` |
+| **#4** | **Timeline Keyboard Snapping & Audio Peak Visualization** | `apps/studio-ui/src/workspaces/timeline/CoreTimelinePage.tsx`, `coreEditingModel.ts` | Pure frame-grid/playhead snapping helper (fractional FPS safe), NLE keyboard nudging, and client-side PCM peak waveform rendering without mutating source files. | `./scripts/test-frontend.ps1` + `./scripts/build-ui.ps1` |
+| **#5** | **Headless Offline CI Evidence Pack & Identity Gate** | `scripts/run_offline_tests.py`, `verify_integrity.py`, `playwright.product.config.ts` | One-command offline CI pipeline emitting sanitized JSON/JUnit summaries + CRLF/binary-safe `core_identity.json` drift checker. | `pytest test_readiness_operations.py test_backup_restore.py` + `test-frontend.ps1` |
+
+---
+
+## 3. System Architecture & Operating Boundaries
+
+KinoWeave Studio enforces strict separation between UI exploration (`DEMO / MOCK`), isolated offline acceptance (`LOCAL CORE`), and opt-in billable providers (`LIVE PROVIDER`):
+
+| Mode | Backing Engine | Network / Paid APIs | Purpose & Guardrail |
+| --- | --- | --- | --- |
+| **`DEMO / MOCK`** | Browser `mockAdapter` + `localStorage` fixtures | **None** (`127.0.0.1` UI only) | Interactive 6-workspace exploration. Explicitly displays `CORE API NOT EXPOSED` / `NO MEDIA GENERATED` banners. |
+| **`LOCAL CORE`** (Offline / Local TLS) | Python 3.12 Core + `h11` Loopback Bridge + SQLite + Pinned `FFmpeg 9.0.2` | **Localhost / Local TLS only** (`0` paid calls) | Real Bridge HTTP, one-use pairing secrets, CSRF, 7-check Generation Gate, Job/Attempt leases, safe staging, Timeline revisions, and FFmpeg MP4/WebM QC. |
+| **`LIVE PROVIDER`** | Python Core + Bridge + Vendor Transports | **Default DISABLED** | Requires **two** independent authorization files (`ProviderConfig` + `LiveWriteGrant`), per-modality scope, named env var secrets, integer minor-unit budget caps, and `download_hosts` allowlists. |
 
 ```mermaid
 flowchart LR
@@ -44,96 +119,50 @@ flowchart LR
   C --> F
 ```
 
-- **Deep Dive**: See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for trust boundaries, database migrations (`0001`–`0013`), cache-first recovery, bounded log redaction, and quiesced backup/restore.
+- **Full Architecture Reference**: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) (trust boundaries, `0001`–`0013` migrations, bounded log redaction, quiesced backup/restore).
 
 ---
 
-## 90–120s Demo Video & Real Application Screenshots
+## 4. Core Engineering Excerpts (`snippets/`)
 
-- **Demo Recording (104.20s, 1280×720 H.264)**: [demo/kinoweave-studio-demo.mp4](demo/kinoweave-studio-demo.mp4)
-- **Synchronized English Subtitles (16 cues)**: [demo/kinoweave-studio-demo.srt](demo/kinoweave-studio-demo.srt)
-- **Technical Brief & Recording Script**: [demo/TECHNICAL_BRIEF.md](demo/TECHNICAL_BRIEF.md) · [demo/MANUAL_RECORDING_SCRIPT.md](demo/MANUAL_RECORDING_SCRIPT.md)
+All files in `snippets/` are read-only, syntax-verified Python excerpts extracted directly from KinoWeave Core:
 
-### Part A — Live React Studio UI (`DEMO / MOCK` Mode, Captured Live in Desktop Chrome)
-
-| Project Workspace & Shared Context | Content Studio (Units / Sequences / Shots) |
-| --- | --- |
-| ![Project Workspace](assets/screenshots/01-project-workspace-demo.png) | ![Content Studio](assets/screenshots/02-content-studio-demo.png) |
-| **Storyboard Studio (ShotSpec & Mixed Visual Routes)** | **Local Core Connection & Isolation Boundaries** |
-| ![Storyboard Studio](assets/screenshots/03-storyboard-studio-demo.png) | ![Local Core Connection](assets/screenshots/04-connection-boundaries.png) |
-
-### Part B — Authenticated `LOCAL CORE` + Bridge HTTP + FFmpeg Acceptance (Offline / Local TLS)
-
-| 7-Check Generation Gate `PASS` → Ingested Asset | Fail-Closed Gate `DENIED` (`REVIEW_NOT_FOUND`) |
-| --- | --- |
-| ![Core Production Gate PASS](assets/screenshots/05-core-production-gate-pass.png) | ![Core Gate Denied](assets/screenshots/06-core-production-gate-denied.png) |
-| **`UNKNOWN` Non-Retry Guard (`RECONCILIATION_REQUIRED`)** | **Content-Addressed Project & Asset Browser** |
-| ![Core Production UNKNOWN](assets/screenshots/07-core-production-unknown-reconcile.png) | ![Core Assets](assets/screenshots/08-core-projects-assets.png) |
-| **Non-Destructive Multi-Track Timeline (`V1`/`A1`, Rational FPS)** | **Pinned FFmpeg 9.0.2 H.264/AAC Delivery & Decode QC** |
-| ![Core Multi-track Timeline](assets/screenshots/09-core-timeline-multitrack.png) | ![Core FFmpeg Delivery](assets/screenshots/10-core-delivery-ffmpeg-verified.png) |
-
-*(In `09-core-timeline-multitrack.png`, a test-harness `<video>` tag appended below the application footer in the original full-page E2E capture was cropped out below the bottom border; the entire Studio UI viewport is unaltered.)*
+1. **Multi-Provider Capability Contracts & Output Policies** — [snippets/01_provider_contracts.py](snippets/01_provider_contracts.py)  
+   `ProviderRegistry.resolve()` enforces strict `(provider_id, model_id, modality)` pinning with zero silent fallback; `OutputPolicy.evaluate()` gates `CANDIDATE` behaviors behind explicit acceptance and full decode/CFR timing checks.
+2. **Fail-Closed Generation Gate & Async Video Orchestration** — [snippets/02_generation_gate_and_async_video.py](snippets/02_generation_gate_and_async_video.py)  
+   Rejects secret-keyed generation parameters (`PARAMETER_SECRET_NOT_ALLOWED`), pins `GenerationJob` execution to immutable `provider_config` digests, consumes budget reservations before external submission, and transitions uncertain outcomes to `UNKNOWN` / `RECONCILIATION_REQUIRED` (`automatic_retries: 0`).
+3. **Zero-Network Cache Recovery & Anti-SSRF Downloader** — [snippets/03_cache_and_safe_download.py](snippets/03_cache_and_safe_download.py)  
+   Binds downloaded bytes via `VideoResultReceipt` to exact Job/Attempt/Manifest/Contract/SHA-256 identities so recovery works completely offline, while `validate_download_destination()` enforces HTTPS host allowlists, bounded DNS resolution, and public-IP checks.
+4. **Non-Destructive Frame-Exact Timeline Model** — [snippets/04_nondestructive_timeline.py](snippets/04_nondestructive_timeline.py)  
+   Validates normalized rational `FrameRate(num, den)`, non-overlapping intervals, still-image zero `source_in`, and registered Asset SHA-256 immutability under optimistic concurrency (`expected_revision`).
 
 ---
 
-## Core Engineering Pillars & Code Excerpts
+## 5. Live 104s Demo Video & React Studio UI Captures (`DEMO / MOCK`)
 
-The `snippets/` directory contains sanitized, syntax-verified Python excerpts directly from KinoWeave Core:
+- **Video Walkthrough (`104.20s`, `1280×720` H.264)**: [demo/kinoweave-studio-demo.mp4](demo/kinoweave-studio-demo.mp4)
+- **English Subtitles & Scripts**: [kinoweave-studio-demo.srt](demo/kinoweave-studio-demo.srt) · [TECHNICAL_BRIEF.md](demo/TECHNICAL_BRIEF.md) · [MANUAL_RECORDING_SCRIPT.md](demo/MANUAL_RECORDING_SCRIPT.md)
 
-1. **Multi-Provider Capability Contracts & Versioned Output Policies** — [snippets/01_provider_contracts.py](snippets/01_provider_contracts.py)
-   - `ProviderRegistry.resolve()` enforces strict `(provider_id, model_id, modality)` pinning with **zero silent fallback**.
-   - `ContractRecord` and `OutputPolicy.evaluate()` separate `APPROVED` contracts from `CANDIDATE` rules (e.g., native provider audio or relaxed frame bounds require explicit human acceptance) and enforce full decode + CFR timing verification.
-2. **Fail-Closed Generation Gate & Async Video Orchestration** — [snippets/02_generation_gate_and_async_video.py](snippets/02_generation_gate_and_async_video.py)
-   - Pre-flight `GenerationGateVerifier` validates Snapshot SHA-256, Project/Shot membership, unrevoked Review approvals with Warning ACKs, pinned route matching, and rejects secret-keyed generation parameters (`PARAMETER_SECRET_NOT_ALLOWED`).
-   - `AsyncVideoOrchestratorExcerpt` locks each `GenerationJob` to its pinned `provider_config` identity, consumes budget reservations before a single external submit (`SDK_SUBMISSION_STARTED`), and forces ambiguous errors into `UNKNOWN` / `RECONCILIATION_REQUIRED` with `automatic_retries: 0`.
-3. **Zero-Network Cache Recovery & Anti-SSRF Downloader** — [snippets/03_cache_and_safe_download.py](snippets/03_cache_and_safe_download.py)
-   - `VideoResultReceipt` binds staged media bytes to exact `(project_id, job_id, attempt_id, task_id, manifest_sha256, contract_sha256, endpoint_sha256, source_sha256)` so recovery works completely offline without opening transports or reading secrets.
-   - `validate_download_destination()` and `public_address()` reject non-HTTPS URLs, unlisted hosts, credentials in URLs, and loopback/private/mapped IP targets under a bounded DNS semaphore.
-4. **Non-Destructive Frame-Exact Timeline Model** — [snippets/04_nondestructive_timeline.py](snippets/04_nondestructive_timeline.py)
-   - `EditingDocument` enforces normalized rational `FrameRate(num, den)`, non-overlapping intervals, still-image zero `source_in`, and registered Asset SHA-256 immutability with optimistic concurrency (`expected_revision`).
+![Project Workspace DEMO Mode](assets/screenshots/01-project-workspace-demo.png)
 
----
+![Local Core Connection & Security Boundaries](assets/screenshots/04-connection-boundaries.png)
 
-## Reproducible Verification Evidence
+<details>
+<summary><strong>More Full-Width Screenshots (Content Studio, Storyboard Visual Routes &amp; Core Asset Browser)</strong></summary>
 
-Live verification executed on **`2026-11-20`** is kept **strictly separate** from the historical frozen closure baseline (`724f79b`, `2026-11-11`). Full command logs and explanations live in [evidence/TEST_VERIFICATION.md](evidence/TEST_VERIFICATION.md).
+![Content Studio DEMO Mode](assets/screenshots/02-content-studio-demo.png)
 
-| Check Scope | Run Date / Commit | Measured Result | Notes |
-| --- | --- | --- | --- |
-| **Representative Core Backend Suite** (17 `pytest` files) | **Live · 2026-11-20** | **253 passed, 1 skipped, 0 failed** (`409.09s`) | Covers contracts, policies, gates, jobs, async video, cache, recovery, Pixstag/Seedance adapters, editing, delivery, backup/restore, logging, grants. Skip = Windows unprivileged symlink test. |
-| **Frontend TypeScript + Vitest** (`test-frontend.ps1`) | **Live · 2026-11-20** | **128 passed / 20 files**, `tsc` 0 errors (`22.80s`) | Real component & state-machine tests for Bridge client, Production boundaries, Timeline model, Storyboard, Content. |
-| **Frontend Production Build** (`build-ui.ps1`) | **Live · 2026-11-20** | **PASS** (`301` modules, `1.68s`) | Clean Vite bundle (`tsc -b && vite build`). |
-| **Demo MP4 FFprobe + Full Decode** | **Live · 2026-11-20** | **PASS** (`104.20s`, `1280x720`, `0` decode errors) | Verified with pinned FFmpeg / FFprobe `9.0.2`. |
-| **Bridge `verify_runtime()` Integrity Gate** | **Live · 2026-11-20** | **Fail-Closed `503 RUNTIME_UNAVAILABLE`** | Expected: `core_identity.json` is pinned to frozen `724f79b` while working tree is at `b31e426` with active Core/integration edits—proving runtime tamper/drift detection blocks socket binding. |
-| **Full Backend Regression (Frozen Baseline)** | Historical · `724f79b` (`2026-11-11`) | **1,818 PASS / 3 SKIP / 0 FAIL** (`1:17:59`) | Frozen pre-integration closure baseline; includes real Bridge HTTP, new-root Chrome E2E, cache recovery, and 30-file backup/restore drill. |
+![Storyboard Studio Visual Routes](assets/screenshots/03-storyboard-studio-demo.png)
+
+![LOCAL CORE Project & Asset Browser](assets/screenshots/08-core-projects-assets.png)
+
+</details>
 
 ---
 
-## Devin Bots Parallel Engineering Roadmap (5 Scoped Workstreams)
+## 6. Known Limitations, Audit & Notice
 
-KinoWeave Studio's decoupled module ownership and offline test harnesses allow **five Devin Bots** to execute concurrently without interfering with each other or calling paid APIs. Full specifications, target files, and pytest/Vitest verification gates are documented in [docs/DEVIN_BOTS_ROADMAP.md](docs/DEVIN_BOTS_ROADMAP.md):
-
-| # | Workstream | Primary Modules | Verification Gate |
-| --- | --- | --- | --- |
-| **1** | **Multi-Provider Contract Matrix & Error Taxonomy** | `model_contracts.py`, `providers.py` | `pytest test_model_contracts.py test_providers_templates.py test_video_provider_contract.py` |
-| **2** | **Async Video Recovery & Ledger Reconciliation CLI** | `video_recovery.py`, `video_result_cache.py`, `recover_cached_video.py` | `pytest test_video_recovery.py test_video_cache.py test_offline_video_runtime.py` |
-| **3** | **Bridge OpenAPI v1 & TypeScript/Zod Schema Parity** | `kinoweave_bridge/contract.py`, `openapi-v1.yaml`, `*Contracts.ts` | `pytest tests/bridge/test_contract.py` + `npm run typecheck && npm test` |
-| **4** | **Timeline Keyboard Snapping & Audio Peak Visualization** | `CoreTimelinePage.tsx`, `coreEditingModel.ts` | `./scripts/test-frontend.ps1` + `./scripts/build-ui.ps1` |
-| **5** | **Headless Offline CI Evidence Pack & Identity Gate** | `run_offline_tests.py`, `verify_integrity.py`, `playwright.product.config.ts` | `pytest test_readiness_operations.py test_backup_restore.py` + `test-frontend.ps1` |
-
----
-
-## Known Limitations & Honest Readiness Boundaries
-
-- **Web Authoring / Approval Scope**: Web Content Studio, Storyboard, and Review are read-only in `LOCAL CORE` mode; content registration, `PromptSnapshot` creation, and human approvals execute via trusted local CLI.
-- **Candidate Model Contracts**: Certain vendor behaviors (e.g., Pixstag native audio / variable frame counts, Huoshen `Edit`, `gpt-image-2.6-sunburst` billing/capabilities) remain `CANDIDATE` or `UNVERIFIED` until controlled live verification.
-- **Non-AI Visual Routes**: `CODE_GRAPHICS` and `THREE_D` exist as schema and semantic planning contracts, not general-purpose motion-graphics or 3D rendering engines.
-- **Deployment Scope**: Built for trusted single-operator local production (`127.0.0.1` loopback Bridge, `200`-asset/clip per-sequence bounds, single delivery worker per Data Root); multi-tenant authentication, public TLS termination, and cloud observability are future work.
-- **Working-Tree Bridge Pin**: Because active integration work (`b31e426` + uncommitted edits) has not yet been re-frozen into `core_identity.json`, the Bridge fails closed with `RUNTIME_UNAVAILABLE` until the Core identity manifest is updated on clean LF bytes.
-
----
-
-## Showcase Audit & Licensing
-
-- **Security & Desensitization Audit**: [SECURITY_AUDIT.md](SECURITY_AUDIT.md)
-- **Public Showcase & Copyright Notice**: [NOTICE.md](NOTICE.md)
+- **Web Authoring / Approval Boundaries**: Web Content Studio, Storyboard, and Review are read-only in `LOCAL CORE`; content registration, `PromptSnapshot` creation, and human approvals execute through trusted local CLI.
+- **Candidate & Unverified Provider Paths**: Selected model contracts (e.g., Pixstag native audio / variable frame counts, Huoshen `Edit`, `gpt-image-2.6-sunburst` pricing/identity) remain `CANDIDATE` or `UNVERIFIED`.
+- **Visual Routes & Deployment Scope**: `CODE_GRAPHICS` and `THREE_D` are schema/semantic contracts rather than complete renderers; Bridge targets single-operator loopback workflows (`127.0.0.1`) rather than multi-tenant cloud hosting.
+- **Security Audit & Showcase Notice**: [SECURITY_AUDIT.md](SECURITY_AUDIT.md) · [NOTICE.md](NOTICE.md)

@@ -8,7 +8,7 @@
 
 ## 1. Automated Text & Pattern Scan
 
-All `13` text files (and `SECURITY_AUDIT.md` upon completion) were scanned against automated regex checks for:
+All `14` text files in `D:\KinoWeaveStudio-Showcase` (including `README.md`, `docs/`, `evidence/`, `demo/`, `snippets/`, `NOTICE.md`, `.gitignore`, and `SECURITY_AUDIT.md`) were scanned against automated regex checks for:
 
 | Check Category | Patterns Verified Absent | Result |
 | --- | --- | --- |
@@ -21,10 +21,12 @@ All `13` text files (and `SECURITY_AUDIT.md` upon completion) were scanned again
 
 ## 2. Visual & Media Inspection
 
-- **Screenshots (`assets/screenshots/01` – `10`)**:
+- **Untouched Original Screenshots (`assets/screenshots/01` – `10`)**:
   - `01`–`04` captured live from React Studio UI (`DEMO / MOCK` mode) running in isolated loopback Desktop Chrome (`127.0.0.1:5174`) with external network requests blocked.
-  - `05`–`10` sourced from verified offline / local-TLS `LOCAL CORE` Chrome acceptance runs (`09-core-timeline-multitrack.png` cleanly cropped at `y = 1694` to remove an appended test-harness `<video>` element outside the application footer).
-  - All 10 screenshots visually inspected: zero pairing secrets, zero credentials, zero private paths, zero private creative manuscripts.
+  - `05`–`10` preserved directly from verified offline / local-TLS `LOCAL CORE` Chrome acceptance runs (`09-core-timeline-multitrack.png` cropped at `y = 1694` to remove an appended test-harness `<video>` element outside the application footer).
+- **Lossless Zoomed Highlight Crops (`assets/screenshots/highlights/h1` – `h4b`)**:
+  - Pure pixel crops of `10`, `09`, `05`, `06`, and `07` removing empty sidebars/footer margins for legible full-width README presentation; zero edits to underlying UI content.
+  - All original and cropped screenshots visually inspected: zero pairing secrets, zero credentials, zero private paths, zero private creative manuscripts.
 - **Demo Video (`demo/kinoweave-studio-demo.mp4`)**:
   - Duration: `104.20s`, `1280x720`, H.264 `yuv420p`, `30 fps`, `3,328,968` bytes.
   - Verified with `ffprobe` and full `ffmpeg -v error ... -f null -` decode (`0` errors).
