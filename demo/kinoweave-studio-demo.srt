@@ -1,0 +1,63 @@
+1
+00:00:00,200 --> 00:00:04,800
+KinoWeave Studio: a deterministic, local-first control plane for AI video production.
+
+2
+00:00:05,000 --> 00:00:07,640
+Projects Workspace (DEMO / MOCK): shared project context across six modular workspaces.
+
+3
+00:00:07,640 --> 00:00:12,750
+Project Overview displays profile metadata, Creative Brief revisions, and explicit API capability boundaries.
+
+4
+00:00:12,750 --> 00:00:16,590
+Assets Workspace tracks content-addressed media records separately from Core asset storage.
+
+5
+00:00:16,590 --> 00:00:21,470
+Content Studio structures units, sequences, and shots with non-destructive revision history.
+
+6
+00:00:21,470 --> 00:00:27,640
+Storyboard Studio binds ShotSpecs and visual routes (AI_GENERATIVE, CODE_GRAPHICS, THREE_D) to each shot.
+
+7
+00:00:27,640 --> 00:00:35,130
+Production Center models task DAGs, retries, and preflight checks without silent live API calls.
+
+8
+00:00:35,130 --> 00:00:41,210
+Connection View enforces loopback pairing secrets, CSRF, and strict DEMO / MOCK vs. LOCAL CORE separation.
+
+9
+00:00:41,210 --> 00:00:50,730
+Timeline Studio provides frame-accurate multi-track editing, split/trim controls, and transport preview.
+
+10
+00:00:50,730 --> 00:00:58,100
+QA & Delivery separates manual checklists from CLI-backed Core human approvals.
+
+11
+00:00:58,400 --> 00:01:06,000
+LOCAL CORE Acceptance (Isolated Mock / Local TLS): 7-check Generation Gate PASS feeds immutable manifest & Attempt logs.
+
+12
+00:01:06,300 --> 00:01:12,000
+Fail-closed safety: unreviewed Snapshots are denied (REVIEW_NOT_FOUND); uncertain timeouts enter UNKNOWN with zero auto-retry.
+
+13
+00:01:12,300 --> 00:01:20,000
+LOCAL CORE Timeline: non-destructive V1/A1 editing, rational FPS timebase, and SHA-256 revision history.
+
+14
+00:01:20,300 --> 00:01:30,000
+LOCAL CORE Delivery: pinned FFmpeg 9.0.2 renders H.264/AAC MP4 with full decode verification and output SHA-256.
+
+15
+00:01:30,400 --> 00:01:38,000
+Live 2026-11-20 checks: 253 Core tests & 128 Vitest specs PASS, strictly separated from the 1,818-test frozen baseline.
+
+16
+00:01:38,300 --> 00:01:44,000
+Five parallel Devin Bots workstreams target contracts, recovery, OpenAPI parity, timeline UX, and CI E2E.

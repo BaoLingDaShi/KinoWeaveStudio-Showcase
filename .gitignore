@@ -1,0 +1,26 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Node / Playwright
+node_modules/
+test-results/
+playwright-report/
+
+# Local secrets & databases (never commit)
+.env
+.env.*
+*.sqlite
+*.sqlite3
+*.pem
+*.key
+*.log
